@@ -2,8 +2,7 @@ import mongoose = require('mongoose');
 
 export class Profile {
     static profileRead(req, res) {
-        //    var User = mongoose.model('User');
-        var User: any;
+        var User = mongoose.model('User');
 
         if (!req.payload._id) {
             res.status(401).json({

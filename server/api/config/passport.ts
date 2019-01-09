@@ -4,8 +4,7 @@ import mongoose = require('mongoose');
 
 export class PassportConfig {
     static Config() {
-        //var User = mongoose.model('User');
-        var User: any;
+        var User = mongoose.model('User');
 
         var LocalStrategy = passportLocal.Strategy;
 

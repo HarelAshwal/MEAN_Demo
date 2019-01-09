@@ -4,13 +4,14 @@ import * as path from "path";
 import * as debug from 'debug';
 import * as http from 'http';
 import * as morgan from 'morgan';
-import * as IndexRouter from "./IndexRouter";
 import cookieParser = require('cookie-parser');
 import cors = require('cors');
 // [SH] Require Passport
 import passport = require('passport');
 import { PassportConfig } from "./api/config/passport";
 import { DataBase } from "./api/models/database";
+import { IndexRouter } from "./api/routes/IndexRouter";
+import { ApiRouter } from "./api/routes/ApiRouter";
 
 // import * as indexRoute from "./routes/index";
 
@@ -177,7 +178,9 @@ export class Server {
         let router: express.Router;
         router = express.Router();
 
-        var indexApi = new IndexRouter.IndexRouter(router);
+        var indexApi = new IndexRouter(router);
+
+        var apiApi = new ApiRouter(router);
 
         //use router middleware
         this.app.use(router);

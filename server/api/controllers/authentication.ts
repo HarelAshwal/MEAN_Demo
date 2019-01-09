@@ -8,8 +8,7 @@ export class Authentication {
     }
 
     register(req, res) {
-        //    var User = mongoose.model('User');
-        var User: any;
+        var User = mongoose.model('User');
 
         // if(!req.body.name || !req.body.email || !req.body.password) {
         //   sendJSONresponse(res, 400, {
@@ -45,7 +44,7 @@ export class Authentication {
         //   return;
         // }
 
-        passport.authenticate('local', function (err, user, info) {
+        passport.authenticate('local', (err, user, info) => {
             var token;
 
             // If Passport throws/catches an error

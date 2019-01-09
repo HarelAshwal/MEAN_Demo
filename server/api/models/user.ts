@@ -41,6 +41,6 @@ export class User {
             }, "MY_SECRET"); // DO NOT KEEP YOUR SECRET IN THE CODE!
         };
 
-        //   mongoose.model('User', userSchema);
+        mongoose.model('User', userSchema);
     }
 }
