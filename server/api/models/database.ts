@@ -1,20 +1,21 @@
 import mongoose = require('mongoose');
 import { User } from './user';
 var gracefulShutdown;
-var dbURI = 'mongodb+srv://test:test@cluster0-qitg8.azure.mongodb.net/meanAuth';
 
 export class DataBase {
     static Connect() {
+        var dbURI = 'mongodb+srv://test:test@cluster0-qitg8.azure.mongodb.net/meanAuth';
+
         mongoose.connect(dbURI);
 
         // CONNECTION EVENTS
-        mongoose.connection.on('connected', function () {
+        mongoose.connection.on('connected', () => {
             console.log('Mongoose connected to ' + dbURI);
         });
-        mongoose.connection.on('error', function (err) {
+        mongoose.connection.on('error', (err) => {
             console.log('Mongoose connection error: ' + err);
         });
-        mongoose.connection.on('disconnected', function () {
+        mongoose.connection.on('disconnected', () => {
             console.log('Mongoose disconnected');
         });
 

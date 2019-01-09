@@ -1,23 +1,24 @@
 
 import * as express from "express";
-
+import { Authentication } from "../controllers/authentication";
+import jwt = require('express-jwt');
+import { Profile } from "../controllers/profile";
 
 export class ApiRouter {
     constructor(router: express.Router) {
-        router.get('/api/api1', this.Api1);
-        router.get('/api/api2', this.Api2);
+
+        var auth = jwt({
+            secret: 'MY_SECRET',
+            userProperty: 'payload'
+        });
+
+        router.post('/api/register', Authentication.register);
+        router.post('/api/login', Authentication.login);
+
+        router.get('/api/profile', auth, Profile.profileRead);
 
     }
 
-    public async Api1(req: express.Request, res: express.Response, next: express.NextFunction) {
-
-        res.send({ hello: 'api1' });
-    }
-
-    public async Api2(req: express.Request, res: express.Response, next: express.NextFunction) {
-
-        res.send({ hello: 'api2' });
-    }
 
 
 }

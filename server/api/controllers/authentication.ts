@@ -1,21 +1,22 @@
+import * as express from "express";
 import passport = require('passport');
 import mongoose = require('mongoose');
 
 export class Authentication {
-    sendJSONresponse(res, status, content) {
+    static sendJSONresponse(res: express.Response, status, content) {
         res.status(status);
         res.json(content);
     }
 
-    register(req, res) {
+    static register(req: express.Request, res: express.Response) {
         var User = mongoose.model('User');
 
-        // if(!req.body.name || !req.body.email || !req.body.password) {
-        //   sendJSONresponse(res, 400, {
-        //     "message": "All fields required"
-        //   });
-        //   return;
-        // }
+        if (!req.body.name || !req.body.email || !req.body.password) {
+            Authentication.sendJSONresponse(res, 400, {
+                "message": "All fields required"
+            });
+            return;
+        }
 
         var user = new User() as any;
 
@@ -24,18 +25,19 @@ export class Authentication {
 
         user.setPassword(req.body.password);
 
-        user.save(function (err) {
+        user.save((err) => {
             var token;
             token = user.generateJwt();
             res.status(200);
             res.json({
                 "token": token
             });
+
         });
 
     }
 
-    login(req, res) {
+    static login(req: express.Request, res: express.Response) {
 
         // if(!req.body.email || !req.body.password) {
         //   sendJSONresponse(res, 400, {
